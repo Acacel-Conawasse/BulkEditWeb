@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kronos Historical Edits - Bulk Edit Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <table id="bulkEditForm">
+        <!-- Table header -->
+        <thead>
+            <tr>
+                <th>Employee Number</th>
+                <th>Employee Name</th>
+                <th>Historical Date</th>
+                <th>Cost Center/IO</th>
+                <th>Pay Code</th>
+                <th>Amount</th>
+                <th>New Cost Center/IO</th>
+                <th>New Pay Code</th>
+                <th>New Amount</th>
+                <th>Reason (REQUIRED FIELD)</th>
+                <th>Manager's JHED ID</th>
+            </tr>
+        </thead>
+        <!-- Table body where rows will be added -->
+        <tbody>
+            <!-- Rows will be added here by the script -->
+        </tbody>
+        <!-- Table footer where the add row controls will be placed -->
+        <tfoot>
+            <tr>
+                <td colspan="11"> <!-- Span across all columns -->
+                    <button id="addRows">Add 100 More Rows</button>
+                    <input type="number" id="customRows" placeholder="Enter number of rows" min="1">
+                    <button id="addCustomRows">Add Custom Rows</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <script src="script.js"></script>
+</body>
+</html>

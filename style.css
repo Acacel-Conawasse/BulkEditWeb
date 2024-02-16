@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: calc(100% / 1.5); /* Reduces font size by a factor of 1.5 */
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: calc(5px / 1.5) calc(10px / 1.5); /* Reduces padding by a factor of 1.5 */
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+th {
+    background-color: #4d90fe; /* Updated background color */
+    color: #fff; /* Updated text color */
+}
+td {
+    background-color: #fff;
+}
+input[type="text"] {
+    width: 100%;
+    padding: calc(5px / 1.5); /* Reduces input padding by a factor of 1.5 */
+    margin: -calc(5px / 1.5) 0; /* Adjusts margin to new padding */
+    border: none;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+input[type="text"]:focus {
+    outline: 2px solid #4d90fe;
+}
+.controls {
+    text-align: center;
+    margin-top: 10px;
+}
+#addRows, #addCustomRows {
+    margin: 0 5px;
+    padding: calc(5px / 1.5) calc(10px / 1.5); /* Reduces button padding by a factor of 1.5 */
+}
+#customRows {
+    padding: calc(5px / 1.5);
+    margin: 0 5px;
+}
+tfoot {
+    font-size: calc(100% / 1.5); /* Ensure footer text matches the reduced font size */
+}
