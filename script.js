@@ -8,6 +8,7 @@ function adjustColumnWidths(tableId) {
     const table = document.getElementById(tableId);
     const rows = table.getElementsByTagName('tr');
     let colWidths = new Array(table.rows[0].cells.length).fill(0);
+    // Create a temporary canvas to measure text width accurately
 
     // Create a temporary canvas to measure text width accurately
     let canvas = document.createElement("canvas");
