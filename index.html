@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <title>Kronos Historical Edits - Bulk Edit Form</title>
     <link rel="stylesheet" href="style.css">
+    <header>
+        <h1>Kronos Historical Edits - Bulk Edit  Form 
+    </header>
 </head>
 <body>
     <table id="bulkEditForm">
-        <!-- Table header -->
         <thead>
+            <tr>
+                <td colspan="11"> <!-- Span across all columns -->
+                    <button id="addRows">Add 100 More Rows</button>
+                    <input type="number" id="customRows" placeholder="Enter number of rows" min="1">
+                    <button id="addCustomRows">Add Custom Rows</button>
+                </td>
+            </tr>
+        </thead>
             <tr>
                 <th>Employee Number</th>
                 <th>Employee Name</th>

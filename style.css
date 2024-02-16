@@ -8,11 +8,11 @@ table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
-    font-size: calc(100% / 1.5); /* Reduces font size by a factor of 1.5 */
+    font-size: calc(100% / 1); /* Reduces font size by a factor of 1.5 */
 }
 th, td {
-    border: 1px solid #ccc;
-    padding: calc(5px / 1.5) calc(10px / 1.5); /* Reduces padding by a factor of 1.5 */
+    border: 1px solid #000000;
+    padding: calc(5px / 2) calc(10px / 4); /* Reduces padding by a factor of 1.5 */
     text-align: left;
     vertical-align: middle;
     white-space: nowrap;
@@ -20,11 +20,14 @@ th, td {
     text-overflow: ellipsis;
 }
 th {
-    background-color: #4d90fe; /* Updated background color */
-    color: #fff; /* Updated text color */
+    background-color: #0019fa; /* Updated background color */
+    color: #ffffff; /* Updated text color */
 }
 td {
-    background-color: #fff;
+    background-color: #cfcfcf;
+}
+th, td:first-child {
+    font-size: 0.8em; /* Smaller font size for the row numbers and header */
 }
 input[type="text"] {
     width: 100%;
@@ -51,4 +54,7 @@ input[type="text"]:focus {
 }
 tfoot {
     font-size: calc(100% / 1.5); /* Ensure footer text matches the reduced font size */
+}
+tfoot td {
+    text-align: center; /* Centers the content horizontally */
 }
