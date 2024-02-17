@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     adjustColumnWidths('bulkEditForm');
-    addRowsToTable(20); // Initial rows added for demonstration
+    addRowsToTable(30); // Initial rows added for demonstration
     enableDragAndCopy();
 });
 
