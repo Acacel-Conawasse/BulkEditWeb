@@ -58,3 +58,55 @@ tfoot {
 tfoot td {
     text-align: center; /* Centers the content horizontally */
 }
+thead td {
+    text-align: center;
+}
+/* General button styling */
+button {
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth color transition and slight grow effect on hover */
+}
+
+/* Specific button colors */
+#downloadCsv {
+    background-color: #4CAF50; /* Green */
+}
+
+.add-rows {
+    background-color: #008CBA; /* Blue */
+}
+
+.add-custom {
+    background-color: #008CBA; /* Blue, same as add rows for consistency */
+}
+/* Specific button colors */
+#downloadCsv1 {
+    background-color: #4CAF50; /* Green */
+}
+
+.add-rows1 {
+    background-color: #008CBA; /* Blue */
+}
+
+.add-custom1 {
+    background-color: #008CBA; /* Blue, same as add rows for consistency */
+}
+/* Hover effects */
+#downloadCsv:hover {
+    background-color: #45a049; /* Darker green */
+    transform: scale(1.05); /* Slightly larger */
+}
+
+.add-rows:hover, .add-custom:hover {
+    background-color: #007B9E; /* Darker blue */
+    transform: scale(1.05); /* Slightly larger */
+}
