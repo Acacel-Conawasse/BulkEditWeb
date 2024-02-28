@@ -160,6 +160,7 @@ function enableDragAndCopy() {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //Add Rows
+//Add Rows
 document.querySelector('.add-rows').addEventListener('click', () => addRowsToTable(100));
 document.querySelector('.add-custom').addEventListener('click', () => {
     const numberOfRows = parseInt(document.getElementById('customRows').value, 10);
