@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <title>Kronos Historical Edits - Bulk Edit Form</title>
     <link rel="stylesheet" href="style.css">
-    <header>
-        <h1>Kronos Historical Edits - Bulk Edit  Form 
-    </header>
 </head>
 <body>
+    <header>
+        <img src="JHWorksLogo.png" alt="JH Works Logo" align="Center">
+        <h1>Kronos Historical Edits - Bulk Edit Form</h1>
+    </header>
+
     <table id="bulkEditForm">
         <thead>
             <tr>
-                <td colspan="11"> <!-- Span across all columns -->
+                <td colspan="11"> <!-- Span across all columns for the control buttons -->
                     <button id="downloadCsv">Download CSV</button>
                     <button id="addRows" class="add-rows">Add 100 More Rows</button>
                     <button id="addCustomRows" class="add-custom">Add Custom Number of Rows</button>
                     <input type="number" id="customRows" placeholder="Enter number of rows" min="1">
                 </td>
             </tr>
-        </thead>
             <tr>
+                <!-- Header cells -->
                 <th>Employee Number</th>
                 <th>Employee Name</th>
                 <th>Historical Date</th>
@@ -34,22 +36,31 @@
                 <th>Manager's JHED ID</th>
             </tr>
         </thead>
-        <!-- Table body where rows will be added -->
         <tbody>
             <!-- Rows will be added here by the script -->
         </tbody>
-        <!-- Table footer where the add row controls will be placed -->
         <tfoot>
             <tr>
-                <td colspan="11"> <!-- Span across all columns -->
-                    <button id="downloadCsv">Download CSV</button>
-                    <button id="addRows" class="add-rows1">Add 100 More Rows</button>
-                    <button id="addCustomRows" class="add-custom1">Add Custom Number of Rows</button>
+                <td colspan="11"> <!-- Span across all columns for the control buttons -->
+                    <button id="downloadCsv1">Download CSV</button>
+                    <button id="addRowsBottom" class="add-rows1">Add 100 More Rows</button>
+                    <button id="addCustomRowsBottom" class="add-custom1">Add Custom Number of Rows</button>
                     <input type="number" id="customRows1" placeholder="Enter number of rows" min="1">
                 </td>
             </tr>
         </tfoot>
     </table>
+
+    <!-- Custom Error Modal -->
+    <div class="frame" style="display:none;"> <!-- Initially hidden -->
+        <div class="modal">
+            <img src="https://100dayscss.com/codepen/alert.png" width="44" height="38" />
+            <span class="title">Validation Error</span>
+            <p id="customErrorModalMessage">An error has occurred while validating input.</p>
+            <div id="customErrorModalDismiss" class="button">OK</div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
