@@ -26,6 +26,11 @@ th {
     background-color: #002d74; /* Updated background color */
     color: #ffffff; /* Updated text color */
 }
+/* Required field column headers */
+.required-field {
+  background-color: orange; /* Make required field headers orange */
+  color: #000; /* Black text color for better contrast */
+}
 td {
     background-color: #cfcfcf;
 }
@@ -41,7 +46,7 @@ input[type="text"] {
     box-sizing: border-box;
 }
 input[type="text"]:focus {
-    outline: 2px solid #002d74;
+    outline: 2px solid #05da05;
 }
 .invalid {
     background-color: red; /* or border: 2px solid red; depending on your preference */
@@ -68,6 +73,32 @@ tfoot td {
 thead td {
     text-align: center;
 }
+.color-legend {
+  margin-top: 10px;
+  text-align: right; /* Aligns the legend text to the right */
+  font-size: 0.9em;
+  color: #FFFFFF; /* Assuming a dark background, so text is white for contrast */
+  padding-right: 20px; /* Adds some padding on the right for spacing from the edge */
+}
+
+.legend-item {
+  display: inline-block;
+  margin-right: 20px; /* Adds spacing between multiple legend items if you add more */
+}
+
+.legend-color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #000; /* Optional: adds a border around the color sample */
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.required-color {
+  background-color: orange;
+}
+
 /* General button styling */
 button {
     color: white;
@@ -95,6 +126,7 @@ button {
 .add-custom {
     background-color: #008CBA; /* Blue, same as add rows for consistency */
 }
+
 /* Specific button colors */
 #downloadCsv1 {
     background-color: #4CAF50; /* Green */

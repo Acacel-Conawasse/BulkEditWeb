@@ -87,6 +87,7 @@ function validateInput(value, columnIndex) {
     switch (columnIndex) {
         case 0: return { isValid: /^\d{8}$/.test(value), message: 'Employee Number must be 8 digits' };
         case 1: return { isValid: /^[a-zA-Z\s]+$/.test(value), message: 'Invalid name format' };
+        
         // Extend cases for other columns based on specific validation rules
         default: return { isValid: true, message: '' };
     }

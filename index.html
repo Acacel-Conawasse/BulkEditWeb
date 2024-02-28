@@ -7,8 +7,14 @@
 </head>
 <body>
     <header>
-        <img src="JHWorksLogo.png" alt="JH Works Logo" align="Center">
+        <img src="JHWorksLogo.png" alt="JH Works Logo"  align="Center"> 
         <h1>Historical Bulk Edit Form</h1>
+        <!-- Color Legend Section -->
+        <div class="color-legend">
+            <span class="legend-item">
+                <span class="legend-color required-color"></span> Required Fields
+            </span>
+        </div>
     </header>
 
     <table id="bulkEditForm">
@@ -23,17 +29,17 @@
             </tr>
             <tr>
                 <!-- Header cells -->
-                <th>Employee Number</th>
-                <th>Employee Name</th>
-                <th>Historical Date</th>
+                <th class="required-field">Employee Number *</th>
+                <th class="required-field">Employee Name *</th>
+                <th class="required-field">Historical Date *</th>
                 <th>Cost Center/IO</th>
                 <th>Pay Code</th>
-                <th>Amount</th>
+                <th class="required-field">Amount *</th>
                 <th>New Cost Center/IO</th>
                 <th>New Pay Code</th>
                 <th>New Amount</th>
-                <th>Reason (REQUIRED FIELD)</th>
-                <th>Manager's JHED ID</th>
+                <th class="required-field">Reason *</th>
+                <th class="required-field">Manager's JHED ID *</th>
             </tr>
         </thead>
         <tbody>
