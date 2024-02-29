@@ -58,16 +58,16 @@ function addRowsToTable(numberOfRows) {
     const tableBody = document.getElementById('bulkEditForm').querySelector('tbody');
     for (let i = 0; i < numberOfRows; i++) {
         const newRow = tableBody.insertRow();
-        for (let j = 0; j < 11; j++) {
+        for (let j = 0; j < 11; j++) { // Assuming there are 11 columns in total
             const cell = newRow.insertCell();
             
-            // Check if current column is for "Reason"
-            if (j === 8) { // Assuming the "Reason" column is the 9th column
+            // Check if the current column is the "Reason" column (K, which is index 10)
+            if (j === 10) { // Adjusted for column K
                 const select = document.createElement('select');
                 select.name = 'reason';
                 select.required = true;
 
-                // Add your options here
+                // Define the options for the "Reason" dropdown
                 const options = [
                     { value: "", text: "Select a Reason" },
                     { value: "late_submission", text: "Add Missing Hours" },
@@ -76,7 +76,7 @@ function addRowsToTable(numberOfRows) {
                     { value: "other", text: "Changing Leave Paycodes" }
                 ];
 
-                // Append options to select
+                // Append the defined options to the select element
                 options.forEach(option => {
                     const optionElement = document.createElement('option');
                     optionElement.value = option.value;
@@ -88,7 +88,7 @@ function addRowsToTable(numberOfRows) {
             } else {
                 const input = document.createElement('input');
                 input.type = 'text';
-                // attachInputValidation(input, cell, j); // Assuming you have this function defined elsewhere
+                // attachInputValidation(input, cell, j); // Assuming you have this function defined elsewhere for validation
                 cell.appendChild(input);
             }
         }
