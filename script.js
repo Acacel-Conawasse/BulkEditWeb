@@ -60,14 +60,40 @@ function addRowsToTable(numberOfRows) {
         const newRow = tableBody.insertRow();
         for (let j = 0; j < 11; j++) {
             const cell = newRow.insertCell();
-            const input = document.createElement('input');
-            input.type = 'text';
-            attachInputValidation(input, cell, j);
-            cell.appendChild(input);
+            
+            // Check if current column is for "Reason"
+            if (j === 8) { // Assuming the "Reason" column is the 9th column
+                const select = document.createElement('select');
+                select.name = 'reason';
+                select.required = true;
+
+                // Add your options here
+                const options = [
+                    { value: "", text: "Select a Reason" },
+                    { value: "late_submission", text: "Add Missing Hours" },
+                    { value: "correction", text: "Correcting a Paycode" },
+                    { value: "update_information", text: "Remove Hours Entered by Mistake" },
+                    { value: "other", text: "Changing Leave Paycodes" }
+                ];
+
+                // Append options to select
+                options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option.value;
+                    optionElement.textContent = option.text;
+                    select.appendChild(optionElement);
+                });
+
+                cell.appendChild(select);
+            } else {
+                const input = document.createElement('input');
+                input.type = 'text';
+                // attachInputValidation(input, cell, j); // Assuming you have this function defined elsewhere
+                cell.appendChild(input);
+            }
         }
     }
 }
-
 function attachInputValidation(input, cell, columnIndex) {
     input.addEventListener('change', () => {
         const validationResult = validateInput(input.value, columnIndex);
