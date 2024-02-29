@@ -85,13 +85,29 @@ function attachInputValidation(input, cell, columnIndex) {
 
 function validateInput(value, columnIndex) {
     switch (columnIndex) {
-        case 0: return { isValid: /^\d{8}$/.test(value), message: 'Employee Number must be 8 digits' };
-        case 1: return { isValid: /^[a-zA-Z\s]+$/.test(value), message: 'Invalid name format' };
-        
-        // Extend cases for other columns based on specific validation rules
-        default: return { isValid: true, message: '' };
+        case 0: 
+            return { isValid: /^\d{8}$/.test(value), message: 'Employee Number must be 8 digits' };
+        case 1: 
+            return { isValid: /^[A-Za-z]+(?:-[A-Za-z]+)?\s[A-Za-z]+/.test(value), message: 'Invalid format. Name should be "Lastname Firstname" or "Lastname-Firstname Firstname", with no comma.' };
+        case 2: 
+            return { isValid: /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/.test(value), message: 'Invalid date format. Date format should be mm/dd/yyyy.' };
+        case 3: 
+            return { isValid: /^-?\d{8,10}$/.test(value), message: 'Invalid CC/OU. Please enter 8-10 digits. No special characters allowed.' };
+        case 4: 
+            return { isValid: /^[A-Z0-9\-]+$/.test(value), message: 'Invalid Paycode. Should be in uppercase, digits and hyphen allowed.' };
+        case 5: 
+            return { isValid: /^-?\d+(\.\d+)?$/.test(value), message: 'Invalid amount. Please enter a valid number.' };
+        case 6: 
+            return { isValid: /^-?\d{8,10}$/.test(value), message: 'Invalid CC/OU. Please enter 8-10 digits. No special characters allowed.' };
+        case 7: 
+            return { isValid: /^[A-Z0-9\-]+$/.test(value), message: 'Invalid Paycode. Should be in uppercase, digits and hyphen allowed.' };
+        case 8: 
+            return { isValid: /^-?\d+(\.\d+)?$/.test(value), message: 'Invalid amount. Please enter a valid number.' };
+        default:
+            return { isValid: false, message: 'Invalid column index.' };
     }
 }
+
 
 function addCustomRows() {
     const numberOfRows = parseInt(document.getElementById('customRows').value, 10);
