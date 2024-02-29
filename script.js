@@ -62,7 +62,7 @@ function addRowsToTable(numberOfRows) {
             const cell = newRow.insertCell();
             
             // Check if the current column is the "Reason" column (K, which is index 10)
-            if (j === 10) { // Adjusted for column K
+            if (j === 9) { // Adjusted for column K
                 const select = document.createElement('select');
                 select.name = 'reason';
                 select.required = true;
