@@ -18,47 +18,47 @@ function setupEventListeners() {
 
 function downloadCsv() {
     const table = document.getElementById('bulkEditForm');
-    let isDataValid = true; // Flag to track data validation
+    let isDataValid = true; // Flag to track overall data validation status.
 
-    // Iterate over each row in the table body to check if required fields are filled
+    // Iterate over each row in the table body to check if required fields are filled.
     Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
-        const inputs = row.querySelectorAll('input');
-        // Count non-empty cells
-        const filledCells = Array.from(inputs).filter(input => input.value.trim()).length;
+        const inputs = row.querySelectorAll('input'); // Get all input elements in the row.
+        const filledCellsCount = Array.from(inputs).filter(input => input.value.trim()).length; // Count non-empty cells.
 
-        // Skip validation for rows with 2 or fewer filled cells
-        if (filledCells <= 2) return;
+        // Proceed with validation only if more than two cells are filled in the row.
+        if (filledCellsCount > 2) {
+            // Define the indices of required columns.
+            const requiredColumns = [0, 1, 2, 5, 6, 7]; 
 
-        // List of required columns, adjust based on your actual required columns
-        const requiredColumns = [0, 1, 2, 5, 6, 7];
-
-        requiredColumns.forEach(colIndex => {
-            const input = inputs[colIndex];
-            if (input && !input.value.trim()) { // Check if the input exists and is empty
-                input.classList.add('invalid'); // Highlight input
-                isDataValid = false; // Set flag to false indicating invalid data
-            } else if (input) {
-                input.classList.remove('invalid'); // Remove highlight if input is valid
-            }
-        });
+            requiredColumns.forEach(colIndex => {
+                const input = inputs[colIndex]; // Access the input by its column index.
+                if (input && !input.value.trim()) { // Check if the input exists and is empty.
+                    input.classList.add('invalid'); // Highlight the input field.
+                    isDataValid = false; // Indicate that the validation failed.
+                } else if (input) {
+                    input.classList.remove('invalid'); // Remove highlighting if input is valid.
+                }
+            });
+        }
     });
 
+    // Only proceed with CSV download if all required data is valid.
     if (isDataValid) {
-        // Proceed with CSV generation and download if all required data is valid
+        // Continue with CSV generation and download.
         generateAndDownloadCSV(table);
     } else {
-        // Show an error message if data is invalid
+        // Show an error message if data is invalid.
         showErrorModal('Missing data in required fields for rows with more than 2 filled columns. Please review.');
     }
 }
 
 function generateAndDownloadCSV(table) {
     let csvContent = "data:text/csv;charset=utf-8,";
-    // Extract headers
-    let headers = Array.from(table.querySelectorAll('th')).map(header => `"${header.innerText}"`).join(",");
+    // Extract headers.
+    let headers = Array.from(table.querySelectorAll('thead th')).map(header => `"${header.innerText}"`).join(",");
     csvContent += headers + "\r\n";
 
-    // Extract data
+    // Extract data from tbody only.
     Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
         let rowData = Array.from(row.querySelectorAll('td')).map(cell => {
             let input = cell.querySelector('input');
@@ -67,7 +67,6 @@ function generateAndDownloadCSV(table) {
         csvContent += rowData + "\r\n";
     });
 
-    // Prompt for file name and create download link
     const fileName = prompt("Enter a name for your CSV file:", "BulkEdit") + " " + new Date().toISOString().slice(0, 10) + ".csv";
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
@@ -79,9 +78,10 @@ function generateAndDownloadCSV(table) {
 }
 
 function showErrorModal(message) {
-    // Replace this function with your actual error display logic
-    alert(message); // Simple alert for demonstration
+    // Implement your modal display logic here. For demonstration, using alert.
+    alert(message);
 }
+
 
 
 function adjustColumnWidths(tableId) {
