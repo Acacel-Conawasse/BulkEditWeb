@@ -28,12 +28,12 @@ th {
 }
 
 /*Column Width Controls */
-#bulkEditForm th:nth-child(1) { width: 40; } /* Employee Number */
+#bulkEditForm th:nth-child(1) { width: 40px; } /* Employee Number */
 #bulkEditForm th:nth-child(2) { width: 200px; } /* Employee Name */
 #bulkEditForm th:nth-child(3) { width: 60px; } /* Historical Date */
 #bulkEditForm th:nth-child(4) { width: 70px; } /* Cost Center/IO */
 #bulkEditForm th:nth-child(5) { width: 25px; } /* Pay Code */
-#bulkEditForm th:nth-child(6) { width: 2cqi; } /* Amount */
+#bulkEditForm th:nth-child(6) { width: 20px; } /* Amount */
 #bulkEditForm th:nth-child(7) { width: 70px; } /* New Cost Center/IO */
 #bulkEditForm th:nth-child(8) { width: 25px; } /* New Pay Code */
 #bulkEditForm th:nth-child(9) { width: 20px; } /* New Amount */
