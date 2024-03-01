@@ -18,7 +18,7 @@ function setupEventListeners() {
 function downloadCsv() {
     const table = document.getElementById('bulkEditForm');
     let csvContent = "data:text/csv;charset=utf-8,";
-    let headers = Array.from(table.rows[0].cells).map(header => `"${header.innerText}"`).join(",");
+    let headers = Array.from(table.rows[1].cells).map(header => `"${header.innerText}"`).join(",");
     csvContent += `${headers}\r\n`;
 
     for (let row of table.rows) {
