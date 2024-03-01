@@ -125,7 +125,7 @@ thead td {
 .legend-color {
   width: 20px; /* Example size */
   height: 20px; /* Example size */
-  background-color: #f00; /* Example color for required fields */
+  background-color: orange; /* Example color for required fields */
   margin-right: 10px; /* Spacing between color box and text */
 }
 
@@ -255,7 +255,7 @@ button {
 }
 
 .modal .button:hover {
-  background: #EC3434;
+  background: #e40e0e;
 }
 
 @keyframes show-modal {
