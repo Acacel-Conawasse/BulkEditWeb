@@ -18,47 +18,13 @@ function setupEventListeners() {
 
 function downloadCsv() {
     const table = document.getElementById('bulkEditForm');
-    let isDataValid = true; // Flag to track overall data validation status.
-
-    // Iterate over each row in the table body to check if required fields are filled.
-    Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
-        const inputs = row.querySelectorAll('input'); // Get all input elements in the row.
-        const filledCellsCount = Array.from(inputs).filter(input => input.value.trim()).length; // Count non-empty cells.
-
-        // Proceed with validation only if more than two cells are filled in the row.
-        if (filledCellsCount > 2) {
-            // Define the indices of required columns.
-            const requiredColumns = [0, 1, 2, 5, 6, 7]; 
-
-            requiredColumns.forEach(colIndex => {
-                const input = inputs[colIndex]; // Access the input by its column index.
-                if (input && !input.value.trim()) { // Check if the input exists and is empty.
-                    input.classList.add('invalid'); // Highlight the input field.
-                    isDataValid = false; // Indicate that the validation failed.
-                } else if (input) {
-                    input.classList.remove('invalid'); // Remove highlighting if input is valid.
-                }
-            });
-        }
-    });
-
-    // Only proceed with CSV download if all required data is valid.
-    if (isDataValid) {
-        // Continue with CSV generation and download.
-        generateAndDownloadCSV(table);
-    } else {
-        // Show an error message if data is invalid.
-        showErrorModal('Missing data in required fields for rows with more than 2 filled columns. Please review.');
-    }
-}
-
-function generateAndDownloadCSV(table) {
     let csvContent = "data:text/csv;charset=utf-8,";
-    // Extract headers.
+
+    // Extract headers
     let headers = Array.from(table.querySelectorAll('thead th')).map(header => `"${header.innerText}"`).join(",");
     csvContent += headers + "\r\n";
 
-    // Extract data from tbody only.
+    // Extract data from tbody only
     Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
         let rowData = Array.from(row.querySelectorAll('td')).map(cell => {
             let input = cell.querySelector('input');
@@ -67,20 +33,23 @@ function generateAndDownloadCSV(table) {
         csvContent += rowData + "\r\n";
     });
 
-    const fileName = prompt("Enter a name for your CSV file:", "BulkEdit") + " " + new Date().toISOString().slice(0, 10) + ".csv";
+    // Generate file name based on current date
+    const fileName = "BulkEdit_" + new Date().toISOString().slice(0, 10) + ".csv";
+    
+    // Create a temporary link and trigger the download
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
     link.setAttribute("download", fileName);
-    document.body.appendChild(link);
+    document.body.appendChild(link); // Required for Firefox
     link.click();
-    document.body.removeChild(link);
+    document.body.removeChild(link); // Clean up
 }
 
-function showErrorModal(message) {
-    // Implement your modal display logic here. For demonstration, using alert.
-    alert(message);
-}
+// Attach the downloadCsv function to the download button
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('downloadCsv').addEventListener('click', downloadCsv);
+});
 
 
 
