@@ -27,7 +27,18 @@ th {
     color: #ffffff; /* Updated text color */
 }
 
-
+/*Column Width Controls */
+#bulkEditForm th:nth-child(1) { width: 120px; } /* Employee Number */
+#bulkEditForm th:nth-child(2) { width: 200px; } /* Employee Name */
+#bulkEditForm th:nth-child(3) { width: 150px; } /* Historical Date */
+#bulkEditForm th:nth-child(4) { width: 120px; } /* Cost Center/IO */
+#bulkEditForm th:nth-child(5) { width: 100px; } /* Pay Code */
+#bulkEditForm th:nth-child(6) { width: 100px; } /* Amount */
+#bulkEditForm th:nth-child(7) { width: 120px; } /* New Cost Center/IO */
+#bulkEditForm th:nth-child(8) { width: 100px; } /* New Pay Code */
+#bulkEditForm th:nth-child(9) { width: 100px; } /* New Amount */
+#bulkEditForm th:nth-child(10) { width: 150px; } /* Reason */
+#bulkEditForm th:nth-child(11) { width: 150px; } /* Manager's JHED ID */
 
 /* Required field column headers */
 .required-field {
