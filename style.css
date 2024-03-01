@@ -307,20 +307,21 @@ button {
 }
 
 
-
-
-
 .calloutpoint-cloud {
   background: #e14902;
   color: #ffffff;
-  padding: 10px 20px;
-  border-radius: 20px; /* Rounded corners */
-  position: absolute;
+  padding: 5px 10px; /* Reduced padding for a smaller overall size */
+  border-radius: 10px; /* Adjusted for aesthetics */
+  position: absolute; /* Keeps it out of the document flow and allows positioning relative to an ancestor */
   display: none;
   z-index: 100;
-  box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+  max-width: 200px; /* Smaller width */
+  font-size: 0.8rem; /* Smaller font size */
+  box-sizing: border-box;
 }
 
+/* Adjustments to the pseudo-elements for a smaller callout */
 .calloutpoint-cloud:before, .calloutpoint-cloud:after {
   content: '';
   position: absolute;
@@ -329,13 +330,13 @@ button {
 }
 
 .calloutpoint-cloud:before {
-  width: 40px; height: 40px;
+  width: 20px; height: 20px; /* Smaller elements */
   border-radius: 50%;
-  top: -20px; left: 10px;
+  top: -10px; left: 20%;
 }
 
 .calloutpoint-cloud:after {
-  width: 60px; height: 60px;
+  width: 30px; height: 30px; /* Smaller elements */
   border-radius: 50%;
-  top: -30px; right: 10px;
+  top: -15px; right: 20%;
 }
