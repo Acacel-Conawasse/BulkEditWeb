@@ -98,7 +98,46 @@ thead td {
 .required-color {
   background-color: orange;
 }
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.logo-title img {
+  margin-right: 20px; /* Adjust spacing between logo and title as needed */
+}
+
+.color-legend {
+  text-align: left;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+}
+
+.legend-color {
+  width: 20px; /* Example size */
+  height: 20px; /* Example size */
+  background-color: #f00; /* Example color for required fields */
+  margin-right: 10px; /* Spacing between color box and text */
+}
+
+.reasons-legend {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px; /* Adjust as needed */
+}
+
+.reasons-legend li {
+  margin-bottom: 5px; /* Spacing between legend items */
+}
 /* General button styling */
 button {
     color: white;
