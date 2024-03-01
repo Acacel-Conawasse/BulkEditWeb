@@ -16,6 +16,43 @@ function setupEventListeners() {
     document.getElementById('customErrorModalDismiss').addEventListener('click', clearAndCloseErrorModal);
 }
 
+const columnMessages = [
+    "Employee Number must be 8 digits starting with 00, e.g., 00123456.",
+    "Employee Name should be in 'Lastname, Firstname' format.",
+    "Historical Date format should be MM/DD/YYYY.",
+    "Cost Center/IO is the financial code for the cost center or internal order.",
+    "Pay Code represents the type of pay or deduction.",
+    "Amount is the total figure in dollars.",
+    "New Cost Center/IO if there's a change required.",
+    "New Pay Code for updating pay types.",
+    "New Amount in case of corrections.",
+    "Reason for the change or correction.",
+    "Manager's JHED ID is the unique identifier for the approving manager."
+];
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const headers = document.querySelectorAll('#bulkEditForm th');
+    const callout = document.getElementById('columnCallout');
+    const calloutMsg = callout.querySelector('span'); // Move outside the loop for efficiency
+
+    headers.forEach((header, index) => {
+        header.addEventListener('mouseenter', (e) => {
+            // Set custom message based on column index
+            calloutMsg.textContent = columnMessages[index]; // Use the array of messages
+            const rect = header.getBoundingClientRect();
+            callout.style.display = 'block';
+            callout.style.top = (rect.top - callout.offsetHeight - 5) + 'px'; // Position above the column
+            callout.style.left = (rect.left + (rect.width / 2) - (callout.offsetWidth / 2)) + 'px'; // Center
+        });
+
+        header.addEventListener('mouseleave', () => {
+            callout.style.display = 'none'; // Hide callout
+        });
+    });
+});
+
+
 function downloadCsv() {
     const table = document.getElementById('bulkEditForm');
     let isDataValid = true; // Flag to track data validation

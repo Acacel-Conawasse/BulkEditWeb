@@ -305,3 +305,19 @@ button {
     transform: scale(0);
   }
 }
+
+
+
+
+
+.calloutpoint-pink {
+  background: Orange;
+  color: black;
+  padding: 10px;
+  border-radius: 3px;
+  position: absolute; /* Changed to absolute for dynamic positioning */
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+  display: none; /* Initially hidden */
+  z-index: 100; /* Ensure it appears above other content */
+  white-space: nowrap; /* Keep the callout text on one line */
+}
