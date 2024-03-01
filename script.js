@@ -16,42 +16,46 @@ function setupEventListeners() {
     document.getElementById('customErrorModalDismiss').addEventListener('click', clearAndCloseErrorModal);
 }
 
-//Download CSV
 function downloadCsv() {
     const table = document.getElementById('bulkEditForm');
     let isDataValid = true; // Flag to track data validation
 
-    // Iterate over each row to check if required fields are filled
+    // Iterate over each row to check if it has more than 2 filled inputs
     Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
-        const inputs = row.querySelectorAll('input'); // Assuming each cell has an input
-        // List of required columns, adjust based on your actual required columns
-        const requiredColumns = [0, 1, 2, 5, 6, 7]; 
+        const inputs = Array.from(row.querySelectorAll('input'));
+        const filledInputs = inputs.filter(input => input.value.trim() !== '');
 
-        requiredColumns.forEach(colIndex => {
-            const input = inputs[colIndex];
-            if (!input.value.trim()) { // Check if the input is empty or just whitespace
-                input.classList.add('invalid'); // Highlight input
-                isDataValid = false; // Set flag to false indicating invalid data
-            } else {
-                input.classList.remove('invalid'); // Remove highlight if input is valid
-            }
-        });
+        // Proceed with validation only if more than 2 inputs are filled
+        if (filledInputs.length > 2) {
+            // List of required columns, adjust based on your actual required columns
+            const requiredColumns = [0, 1, 2, 5, 6, 7];
+
+            requiredColumns.forEach(colIndex => {
+                const input = inputs[colIndex];
+                if (input && !input.value.trim()) { // Ensure input exists and check if it's empty
+                    input.classList.add('invalid'); // Highlight input
+                    isDataValid = false; // Set flag to false indicating invalid data
+                } else if (input) {
+                    input.classList.remove('invalid'); // Remove highlight if input is valid
+                }
+            });
+        }
     });
 
     // Only proceed with CSV download if all required data is valid
     if (isDataValid) {
-        // Continue with CSV generation and download
-        let csvContent = "data:text/csv;charset=utf-8,";
-        let headers = Array.from(table.rows[0].cells).map(header => `"${header.innerText}"`).join(",");
+        // Initialize CSV content with a UTF-8 BOM for proper character encoding in Excel
+        let csvContent = "\uFEFFdata:text/csv;charset=utf-8,";
+        let headers = Array.from(table.querySelectorAll('thead th')).map(header => `"${header.innerText}"`).join(",");
         csvContent += `${headers}\r\n`;
 
-        for (let row of table.rows) {
+        Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
             let rowData = Array.from(row.cells).map(cell => {
                 let input = cell.querySelector('input');
-                return input ? `"${input.value}"` : '""';
+                return input ? `"${input.value.replace(/"/g, '""')}"` : '""'; // Handle quotes in input values
             }).join(",");
             csvContent += `${rowData}\r\n`;
-        }
+        });
 
         const fileName = prompt("Enter a name for your CSV file:", "BulkEdit") + " " + new Date().toISOString().slice(0,10) + ".csv";
         const encodedUri = encodeURI(csvContent);
@@ -63,7 +67,7 @@ function downloadCsv() {
         document.body.removeChild(link);
     } else {
         // Show an error message if data is invalid
-        showErrorModal('Missing data in required fields. Please fill out all highlighted fields.');
+        alert('Missing data in required fields for rows with more than 2 filled inputs. Please fill out all highlighted fields.');
     }
 }
 
