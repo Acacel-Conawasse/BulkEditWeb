@@ -16,7 +16,7 @@ table {
 th, td {
     border: 1px solid #000000;
     padding: calc(5px / 2) calc(10px / 4); /* Reduces padding by a factor of 1.5 */
-    text-align: left;
+    text-align: center;
     vertical-align: middle;
     white-space: nowrap;
     overflow: hidden;
