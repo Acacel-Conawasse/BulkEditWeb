@@ -8,9 +8,9 @@ h1{
     color: #FFFFFF;
 } 
 table {
-    width: 100%;
     border-collapse: collapse;
-    table-layout: Auto;
+    table-layout: auto;
+    width: 100%;
     font-size: calc(100% / 1); /* Reduces font size by a factor of 1.5 */
 }
 th, td {
