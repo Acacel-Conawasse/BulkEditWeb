@@ -33,24 +33,40 @@ const columnMessages = [
 
 document.addEventListener('DOMContentLoaded', () => {
     const headers = document.querySelectorAll('#bulkEditForm th');
+    const cells = document.querySelectorAll('#bulkEditForm td');
     const callout = document.getElementById('columnCallout');
-    const calloutMsg = callout.querySelector('span'); // Move outside the loop for efficiency
+    const calloutMsg = callout.querySelector('span'); // Query only once for efficiency
 
+    // Function to show callout
+    const showCallout = (element, message) => {
+        const rect = element.getBoundingClientRect();
+        calloutMsg.textContent = message;
+        callout.style.display = 'block';
+        callout.style.top = (rect.top - callout.offsetHeight - 5) + 'px';
+        callout.style.left = (rect.left + (rect.width / 2) - (callout.offsetWidth / 2)) + 'px';
+    };
+
+    // Set up headers
     headers.forEach((header, index) => {
-        header.addEventListener('mouseenter', (e) => {
-            // Set custom message based on column index
-            calloutMsg.textContent = columnMessages[index]; // Use the array of messages
-            const rect = header.getBoundingClientRect();
-            callout.style.display = 'block';
-            callout.style.top = (rect.top - callout.offsetHeight - 5) + 'px'; // Position above the column
-            callout.style.left = (rect.left + (rect.width / 2) - (callout.offsetWidth / 2)) + 'px'; // Center
-        });
+        header.addEventListener('mouseenter', () => showCallout(header, columnMessages[index]));
+        header.addEventListener('mouseleave', () => callout.style.display = 'none');
+    });
 
-        header.addEventListener('mouseleave', () => {
-            callout.style.display = 'none'; // Hide callout
-        });
+    // Temporary event for cells
+    cells.forEach((cell, index) => {
+        const columnIndex = index % headers.length; // Calculate column index based on total headers
+        const message = columnMessages[columnIndex];
+
+        const mouseEnterFunction = () => showCallout(cell, message);
+        cell.addEventListener('mouseenter', mouseEnterFunction);
+
+        // Remove event listener after 15 seconds
+        setTimeout(() => {
+            cell.removeEventListener('mouseenter', mouseEnterFunction);
+        }, 15000);
     });
 });
+
 
 
 function downloadCsv() {
