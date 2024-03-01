@@ -20,56 +20,69 @@ function downloadCsv() {
     const table = document.getElementById('bulkEditForm');
     let isDataValid = true; // Flag to track data validation
 
-    // Iterate over each row to check if it has more than 2 filled inputs
+    // Iterate over each row in the table body to check if required fields are filled
     Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
-        const inputs = Array.from(row.querySelectorAll('input'));
-        const filledInputs = inputs.filter(input => input.value.trim() !== '');
+        const inputs = row.querySelectorAll('input');
+        // Count non-empty cells
+        const filledCells = Array.from(inputs).filter(input => input.value.trim()).length;
 
-        // Proceed with validation only if more than 2 inputs are filled
-        if (filledInputs.length > 2) {
-            // List of required columns, adjust based on your actual required columns
-            const requiredColumns = [0, 1, 2, 5, 6, 7];
+        // Skip validation for rows with 2 or fewer filled cells
+        if (filledCells <= 2) return;
 
-            requiredColumns.forEach(colIndex => {
-                const input = inputs[colIndex];
-                if (input && !input.value.trim()) { // Ensure input exists and check if it's empty
-                    input.classList.add('invalid'); // Highlight input
-                    isDataValid = false; // Set flag to false indicating invalid data
-                } else if (input) {
-                    input.classList.remove('invalid'); // Remove highlight if input is valid
-                }
-            });
-        }
+        // List of required columns, adjust based on your actual required columns
+        const requiredColumns = [0, 1, 2, 5, 6, 7];
+
+        requiredColumns.forEach(colIndex => {
+            const input = inputs[colIndex];
+            if (input && !input.value.trim()) { // Check if the input exists and is empty
+                input.classList.add('invalid'); // Highlight input
+                isDataValid = false; // Set flag to false indicating invalid data
+            } else if (input) {
+                input.classList.remove('invalid'); // Remove highlight if input is valid
+            }
+        });
     });
 
-    // Only proceed with CSV download if all required data is valid
     if (isDataValid) {
-        // Initialize CSV content with a UTF-8 BOM for proper character encoding in Excel
-        let csvContent = "\uFEFFdata:text/csv;charset=utf-8,";
-        let headers = Array.from(table.querySelectorAll('thead th')).map(header => `"${header.innerText}"`).join(",");
-        csvContent += `${headers}\r\n`;
-
-        Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
-            let rowData = Array.from(row.cells).map(cell => {
-                let input = cell.querySelector('input');
-                return input ? `"${input.value.replace(/"/g, '""')}"` : '""'; // Handle quotes in input values
-            }).join(",");
-            csvContent += `${rowData}\r\n`;
-        });
-
-        const fileName = prompt("Enter a name for your CSV file:", "BulkEdit") + " " + new Date().toISOString().slice(0,10) + ".csv";
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // Proceed with CSV generation and download if all required data is valid
+        generateAndDownloadCSV(table);
     } else {
         // Show an error message if data is invalid
-        alert('Missing data in required fields for rows with more than 2 filled inputs. Please fill out all highlighted fields.');
+        showErrorModal('Missing data in required fields for rows with more than 2 filled columns. Please review.');
     }
 }
+
+function generateAndDownloadCSV(table) {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    // Extract headers
+    let headers = Array.from(table.querySelectorAll('th')).map(header => `"${header.innerText}"`).join(",");
+    csvContent += headers + "\r\n";
+
+    // Extract data
+    Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
+        let rowData = Array.from(row.querySelectorAll('td')).map(cell => {
+            let input = cell.querySelector('input');
+            return input ? `"${input.value}"` : '""';
+        }).join(",");
+        csvContent += rowData + "\r\n";
+    });
+
+    // Prompt for file name and create download link
+    const fileName = prompt("Enter a name for your CSV file:", "BulkEdit") + " " + new Date().toISOString().slice(0, 10) + ".csv";
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function showErrorModal(message) {
+    // Replace this function with your actual error display logic
+    alert(message); // Simple alert for demonstration
+}
+
 
 function adjustColumnWidths(tableId) {
     const table = document.getElementById(tableId);
