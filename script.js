@@ -15,42 +15,29 @@ function setupEventListeners() {
     document.querySelector('.add-custom').addEventListener('click', addCustomRows);
     document.getElementById('customErrorModalDismiss').addEventListener('click', clearAndCloseErrorModal);
 }
-
 function downloadCsv() {
     const table = document.getElementById('bulkEditForm');
     let csvContent = "data:text/csv;charset=utf-8,";
+    let headers = Array.from(table.rows[0].cells).map(header => `"${header.innerText}"`).join(",");
+    csvContent += `${headers}\r\n`;
 
-    // Extract headers
-    let headers = Array.from(table.querySelectorAll('thead th')).map(header => `"${header.innerText}"`).join(",");
-    csvContent += headers + "\r\n";
-
-    // Extract data from tbody only
-    Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
-        let rowData = Array.from(row.querySelectorAll('td')).map(cell => {
+    for (let row of table.rows) {
+        let rowData = Array.from(row.cells).map(cell => {
             let input = cell.querySelector('input');
             return input ? `"${input.value}"` : '""';
         }).join(",");
-        csvContent += rowData + "\r\n";
-    });
+        csvContent += `${rowData}\r\n`;
+    }
 
-    // Generate file name based on current date
-    const fileName = "BulkEdit_" + new Date().toISOString().slice(0, 10) + ".csv";
-    
-    // Create a temporary link and trigger the download
+    const fileName = prompt("Enter a name for your CSV file:", "BulkEdit") + " " + new Date().toISOString().slice(0,10) + ".csv";
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
     link.setAttribute("download", fileName);
-    document.body.appendChild(link); // Required for Firefox
+    document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link); // Clean up
+    document.body.removeChild(link);
 }
-
-// Attach the downloadCsv function to the download button
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('downloadCsv').addEventListener('click', downloadCsv);
-});
-
 
 
 function adjustColumnWidths(tableId) {
