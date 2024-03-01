@@ -28,17 +28,17 @@ th {
 }
 
 /*Column Width Controls */
-#bulkEditForm th:nth-child(1) { width: 70; } /* Employee Number */
+#bulkEditForm th:nth-child(1) { width: 40; } /* Employee Number */
 #bulkEditForm th:nth-child(2) { width: 200px; } /* Employee Name */
-#bulkEditForm th:nth-child(3) { width: 100px; } /* Historical Date */
-#bulkEditForm th:nth-child(4) { width: 90px; } /* Cost Center/IO */
-#bulkEditForm th:nth-child(5) { width: 40px; } /* Pay Code */
-#bulkEditForm th:nth-child(6) { width: 40px; } /* Amount */
-#bulkEditForm th:nth-child(7) { width: 90px; } /* New Cost Center/IO */
-#bulkEditForm th:nth-child(8) { width: 40px; } /* New Pay Code */
-#bulkEditForm th:nth-child(9) { width: 40px; } /* New Amount */
+#bulkEditForm th:nth-child(3) { width: 60px; } /* Historical Date */
+#bulkEditForm th:nth-child(4) { width: 70px; } /* Cost Center/IO */
+#bulkEditForm th:nth-child(5) { width: 25px; } /* Pay Code */
+#bulkEditForm th:nth-child(6) { width: 2cqi; } /* Amount */
+#bulkEditForm th:nth-child(7) { width: 70px; } /* New Cost Center/IO */
+#bulkEditForm th:nth-child(8) { width: 25px; } /* New Pay Code */
+#bulkEditForm th:nth-child(9) { width: 20px; } /* New Amount */
 #bulkEditForm th:nth-child(10) { width: 250px; } /* Reason */
-#bulkEditForm th:nth-child(11) { width: 100px; } /* Manager's JHED ID */
+#bulkEditForm th:nth-child(11) { width: 70px; } /* Manager's JHED ID */
 
 /* Required field column headers */
 .required-field {
