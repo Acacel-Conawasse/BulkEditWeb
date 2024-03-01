@@ -18,26 +18,52 @@ function setupEventListeners() {
 
 function downloadCsv() {
     const table = document.getElementById('bulkEditForm');
-    let csvContent = "data:text/csv;charset=utf-8,";
-    let headers = Array.from(table.rows[0].cells).map(header => `"${header.innerText}"`).join(",");
-    csvContent += `${headers}\r\n`;
+    let isDataValid = true; // Flag to track data validation
 
-    for (let row of table.rows) {
-        let rowData = Array.from(row.cells).map(cell => {
-            let input = cell.querySelector('input');
-            return input ? `"${input.value}"` : '""';
-        }).join(",");
-        csvContent += `${rowData}\r\n`;
+    // Iterate over each row to check if required fields are filled
+    Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
+        const inputs = row.querySelectorAll('input'); // Assuming each cell has an input
+        // List of required columns, adjust based on your actual required columns
+        const requiredColumns = [0, 1, 2, 5, 6, 7]; 
+
+        requiredColumns.forEach(colIndex => {
+            const input = inputs[colIndex];
+            if (!input.value.trim()) { // Check if the input is empty or just whitespace
+                input.classList.add('invalid'); // Highlight input
+                isDataValid = false; // Set flag to false indicating invalid data
+            } else {
+                input.classList.remove('invalid'); // Remove highlight if input is valid
+            }
+        });
+    });
+
+    // Only proceed with CSV download if all required data is valid
+    if (isDataValid) {
+        // Continue with CSV generation and download
+        let csvContent = "data:text/csv;charset=utf-8,";
+        let headers = Array.from(table.rows[0].cells).map(header => `"${header.innerText}"`).join(",");
+        csvContent += `${headers}\r\n`;
+
+        for (let row of table.rows) {
+            let rowData = Array.from(row.cells).map(cell => {
+                let input = cell.querySelector('input');
+                return input ? `"${input.value}"` : '""';
+            }).join(",");
+            csvContent += `${rowData}\r\n`;
+        }
+
+        const fileName = prompt("Enter a name for your CSV file:", "BulkEdit") + " " + new Date().toISOString().slice(0,10) + ".csv";
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", fileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } else {
+        // Show an error message if data is invalid
+        showErrorModal('Missing data in required fields. Please fill out all highlighted fields.');
     }
-
-    const fileName = prompt("Enter a name for your CSV file:", "BulkEdit") + " " + new Date().toISOString().slice(0,10) + ".csv";
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", fileName);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
 }
 
 function adjustColumnWidths(tableId) {
@@ -102,8 +128,6 @@ function validateInput(value, columnIndex) {
             return { isValid: /^[A-Z0-9\-]+$/.test(value), message: 'Invalid Paycode. Should be in uppercase, digits and hyphen allowed.' };
         case 8: 
             return { isValid: /^-?\d+(\.\d+)?$/.test(value), message: 'Invalid amount. Please enter a valid number.' };
-        default:
-            return { isValid: false, message: 'Invalid column index.' };
     }
 }
 

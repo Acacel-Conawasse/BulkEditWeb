@@ -10,7 +10,7 @@ h1{
 table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: Auto;
     font-size: calc(100% / 1); /* Reduces font size by a factor of 1.5 */
 }
 th, td {
@@ -26,6 +26,9 @@ th {
     background-color: #002d74; /* Updated background color */
     color: #ffffff; /* Updated text color */
 }
+
+
+
 /* Required field column headers */
 .required-field {
   background-color: orange; /* Make required field headers orange */
@@ -64,6 +67,8 @@ input[type="text"]:focus {
     padding: calc(5px / 1.5);
     margin: 0 5px;
 }
+
+
 tfoot {
     font-size: calc(100% / 1.5); /* Ensure footer text matches the reduced font size */
 }
@@ -73,6 +78,10 @@ tfoot td {
 thead td {
     text-align: center;
 }
+
+
+
+
 .color-legend {
   margin-top: 10px;
   text-align: right; /* Aligns the legend text to the right */
@@ -138,6 +147,7 @@ thead td {
 .reasons-legend li {
   margin-bottom: 5px; /* Spacing between legend items */
 }
+
 /* General button styling */
 button {
     color: white;
