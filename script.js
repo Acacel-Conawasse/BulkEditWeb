@@ -21,7 +21,8 @@ function downloadCsv() {
     let headers = Array.from(table.rows[1].cells).map(header => `"${header.innerText}"`).join(",");
     csvContent += `${headers}\r\n`;
 
-    for (let row of table.rows) {
+    for (let i = 2; i < table.rows.length; i++) {
+        let row = table.rows[i];
         let rowData = Array.from(row.cells).map(cell => {
             let input = cell.querySelector('input');
             return input ? `"${input.value}"` : '""';
