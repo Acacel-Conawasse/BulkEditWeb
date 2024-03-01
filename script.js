@@ -16,19 +16,6 @@ function setupEventListeners() {
     document.getElementById('customErrorModalDismiss').addEventListener('click', clearAndCloseErrorModal);
 }
 
-const columnMessages = [
-    "Employee Number must be 8 digits starting with 00, e.g., 00123456.",
-    "Employee Name should be in 'Lastname, Firstname' format.",
-    "Historical Date format should be MM/DD/YYYY.",
-    "Cost Center/IO is the financial code for the cost center or internal order.",
-    "Pay Code represents the type of pay or deduction.",
-    "Amount is the total figure in dollars.",
-    "New Cost Center/IO if there's a change required.",
-    "New Pay Code for updating pay types.",
-    "New Amount in case of corrections.",
-    "Reason for the change or correction.",
-    "Manager's JHED ID is the unique identifier for the approving manager."
-];
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,58 +24,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const callout = document.getElementById('columnCallout');
     const calloutMsg = callout.querySelector('span'); // Query only once for efficiency
 
+    // Define your column messages here
+    const columnMessages = [
+        "Employee Number must be 8 digits starting with 00, e.g., 00123456.",
+        "Employee Name should be in 'Lastname, Firstname' format.",
+        "Historical Date format should be MM/DD/YYYY.",
+        // Add more messages as per your columns
+    ];
+
     // Function to show callout
     const showCallout = (element, message) => {
         const rect = element.getBoundingClientRect();
         calloutMsg.textContent = message;
-        callout.style.display = 'block';
-        callout.style.top = (rect.top - callout.offsetHeight - 5) + 'px';
-        callout.style.left = (rect.left + (rect.width / 2) - (callout.offsetWidth / 2)) + 'px';
+        callout.style.display = 'block'; // Ensure callout is displayed
+        callout.style.top = `${rect.top - callout.offsetHeight - 5}px`;
+        callout.style.left = `${rect.left + (rect.width / 2) - (callout.offsetWidth / 2)}px`;
     };
 
     // Set up headers
     headers.forEach((header, index) => {
-        header.addEventListener('mouseenter', () => showCallout(header, columnMessages[index]));
+        header.addEventListener('mouseenter', () => showCallout(header, columnMessages[index] || "No message defined"));
         header.addEventListener('mouseleave', () => callout.style.display = 'none');
     });
 
-    // Temporary event for cells
+    // Temporary event for cells, assuming you want it for a specific duration
     cells.forEach((cell, index) => {
         const columnIndex = index % headers.length; // Calculate column index based on total headers
-        const message = columnMessages[columnIndex];
+        const message = columnMessages[columnIndex] || "No message defined";
 
         const mouseEnterFunction = () => showCallout(cell, message);
         cell.addEventListener('mouseenter', mouseEnterFunction);
 
-        // Remove event listener after 15 seconds
+        // Corrected to remove event listener after 15 seconds
         setTimeout(() => {
             cell.removeEventListener('mouseenter', mouseEnterFunction);
-        }, 15000);
+        }, 15000); // 15 seconds in milliseconds
     });
 });
 
-
-
-function downloadCsv() {
-    const table = document.getElementById('bulkEditForm');
-    let isDataValid = true; // Flag to track data validation
-
-    // Iterate over each row to check if required fields are filled
-    Array.from(table.querySelectorAll('tbody tr')).forEach(row => {
-        const inputs = row.querySelectorAll('input'); // Assuming each cell has an input
-        // List of required columns, adjust based on your actual required columns
-        const requiredColumns = [0, 1, 2, 5, 6, 7]; 
-
-        requiredColumns.forEach(colIndex => {
-            const input = inputs[colIndex];
-            if (!input.value.trim()) { // Check if the input is empty or just whitespace
-                input.classList.add('invalid'); // Highlight input
-                isDataValid = false; // Set flag to false indicating invalid data
-            } else {
-                input.classList.remove('invalid'); // Remove highlight if input is valid
-            }
-        });
-    });
 
     // Only proceed with CSV download if all required data is valid
     if (isDataValid) {
@@ -117,7 +90,7 @@ function downloadCsv() {
         // Show an error message if data is invalid
         showErrorModal('Missing data in required fields. Please fill out all highlighted fields.');
     }
-}
+
 
 function adjustColumnWidths(tableId) {
     const table = document.getElementById(tableId);
