@@ -58,39 +58,12 @@ function addRowsToTable(numberOfRows) {
     const tableBody = document.getElementById('bulkEditForm').querySelector('tbody');
     for (let i = 0; i < numberOfRows; i++) {
         const newRow = tableBody.insertRow();
-        for (let j = 0; j < 11; j++) { // Assuming there are 11 columns in total
+        for (let j = 0; j < 11; j++) {
             const cell = newRow.insertCell();
-            
-            // Check if the current column is the "Reason" column (K, which is index 10)
-            if (j === 9) { // Adjusted for column K
-                const select = document.createElement('select');
-                select.name = 'reason';
-                select.required = true;
-
-                // Define the options for the "Reason" dropdown
-                const options = [
-                    { value: "", text: "Select a Reason" },
-                    { value: "late_submission", text: "Add Missing Hours" },
-                    { value: "correction", text: "Correcting a Paycode" },
-                    { value: "update_information", text: "Remove Hours Entered by Mistake" },
-                    { value: "other", text: "Changing Leave Paycodes" }
-                ];
-
-                // Append the defined options to the select element
-                options.forEach(option => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = option.value;
-                    optionElement.textContent = option.text;
-                    select.appendChild(optionElement);
-                });
-
-                cell.appendChild(select);
-            } else {
-                const input = document.createElement('input');
-                input.type = 'text';
-                // attachInputValidation(input, cell, j); // Assuming you have this function defined elsewhere for validation
-                cell.appendChild(input);
-            }
+            const input = document.createElement('input');
+            input.type = 'text';
+            attachInputValidation(input, cell, j);
+            cell.appendChild(input);
         }
     }
 }
